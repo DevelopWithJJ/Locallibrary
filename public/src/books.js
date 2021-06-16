@@ -37,31 +37,18 @@ function partitionBooksByBorrowedStatus(books) {
 }
 
 function getBorrowersForBook(book, accounts) {
-  //Set empty array
-  let finalArray = [];
-  //Loop through the borrow array history of each book
-  book.borrows.forEach((bookOut) => {
-    //Loop through the account array
-    accounts.forEach((account) => {
-      //Check to see if the book reserved id matches account id.
-      if(bookOut.id === account.id) {
-        //Push the books to the array
-        finalArray.push({
-          //Set keys to the corresponding variable
-          id: account.id,
-          returned: bookOut.returned,
-          picture: account.picture,
-          age: account.age,
-          name: account.name,
-          company: account.company,
-          email: account.email,
-          registered: account.registered
-        })
-      }
-    })
-  })
-  //Return the final array with the first 10
-  return finalArray.slice(0, 10)
+  //Set new variable to book.borrows object
+  const borrowed = book.borrows;
+  //Set new variable to map our borrowed variable
+  const result = borrowed.map((borrow) => {
+    //Set variable to find accoun thtat matches borrow id and account id
+    const account = accounts.find((account) => borrow.id === account.id);
+    //When account is found return all entries in borrow and account
+    return { ...borrow, ...account };
+    //Slice to start at the first index and go to the tenth
+  }).slice(0, 10)
+  //Return our shiny new array.
+  return result
 }
 
 module.exports = {

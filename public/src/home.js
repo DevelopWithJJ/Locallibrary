@@ -43,18 +43,16 @@ function getMostCommonGenres(books) {
 }
 
 function getMostPopularBooks(books) {
-  let popularityBooks = [];
+  let popularBooks = [];
       books.map((book) => {
-        popularityBooks.push(
+        popularBooks.push(
           {
           "name": book.title, 
           "count": book.borrows.length
         });
       });
-    popularityBooks.sort((a, b) => b.count - a.count);
-   
-    let numberItems = 5;
-    return popularityBooks.slice(0, numberItems)
+    popularBooks.sort((a, b) => b.count - a.count);
+    return popularBooks.slice(0, 5)
 }
 
 function _sortObjectByValue(obj) {
@@ -67,7 +65,7 @@ function _sortObjectByValue(obj) {
       //If so, push key to the left.
       return -1;
       //Check if keyA < keyB
-    } else if(obj[KeyA] < obj[keyB]) {
+    } else if(obj[keyA] < obj[keyB]) {
       //If so, push the key to the right
       return 1;
       //Check If keyA = keyB
@@ -111,48 +109,11 @@ function getMostPopularAuthors(books, authors) {
     let name = `${first} ${last}`;
     //Return name with count of author id
     return {name, count:count[authorId]}
-    //
+    //Start slice at first index, stop at the first 5 entries
   }).slice(0,5);
+  //Return our new shiny array
   return arr
 }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  // let popularBooks = [];
-  //   books.forEach((book) => {
-  //       popularBooks.push(
-  //         {
-  //           "authorId":book.authorId, 
-  //           "count": book.borrows.length, 
-  //         });
-  //   });
-
-  //   let popularAuthorsID = Array.from(
-  //       popularBooks.reduce((a,{authorId,count})=> {
-  //           return a.set(authorId, (a.get(authorId)||0) + count);
-  //       }, new Map())
-  //   ).map(([authorId,count])=>({authorId,count}));
-  //   popularAuthorsID.sort((a, b) => b.count - a.count);
-
-  //   let popularAuthors = [];
-  //   popularAuthorsID.forEach((popularAuthorID) => {
-  //       let authorData = authors.find((author) => {return author.id === popularAuthorID.authorId;});
-  //       popularAuthors.push({"name": `${authorData.name.first} ${authorData.name.last}`, "count": popularAuthorID.count});
-  //   });
-
-  //   let numberItems=5;
-  //   return popularAuthors.slice(0, numberItems);
-
 
 module.exports = {
   getTotalBooksCount,
